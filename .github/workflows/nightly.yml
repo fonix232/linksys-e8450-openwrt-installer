@@ -1,0 +1,19 @@
+name: nightly build
+on:
+  push:
+    tags:
+      - v*
+  schedule:
+    - cron: '0 1 * * *' # run at 1 AM UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: sudo apt install libfdt-dev cmake
+      - name: Run build script
+        run: bash build_installer.sh
+## TODO: Add upload
